@@ -33,7 +33,6 @@ const User = mongoose.model('User', userSchema);
 module.exports = { User };
 
 
-
 /*
 
 const mongoose = require('mongoose');

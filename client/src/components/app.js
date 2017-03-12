@@ -1,11 +1,12 @@
 import React from 'react';
 import * as Cookies from 'js-cookie';
-
-import QuestionPage from './question-page';
-import LoginPage from './login-page';
+import { connect } from 'react-redux';
+import store from '../js/store';
+import Layout from '../js/components/layout';
+import LoginPage from '../js/components/login-page';
 import {SERVER_ROOT} from '../config';
 
-class App extends React.Component {
+export class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -43,10 +44,13 @@ class App extends React.Component {
     render() {
         if (!this.state.currentUser) {
             return <LoginPage />;
+        } else {
+        return <Layout />;
         }
-
-        return <QuestionPage />;
     }
 }
 
-export default App;
+const mapStateToProps = (state, props) => ({
+});
+
+export default connect(mapStateToProps)(App)

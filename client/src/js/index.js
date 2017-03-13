@@ -6,7 +6,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Layout from './components/layout';
 
-import store from './js';
+import store from './store';
 import {Provider} from 'react-redux';
 
 document.addEventListener('DOMContentLoaded', () =>

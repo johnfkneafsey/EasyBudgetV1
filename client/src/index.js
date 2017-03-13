@@ -1,13 +1,17 @@
+require('babel-polyfill');
+
+console.log(`Client running in ${process.env.NODE_ENV} mode`);
+
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Layout from './components/app';
+import Layout from './js/components/layout';
 
 import store from './js/store';
 import {Provider} from 'react-redux';
 
-ReactDOM.render(
+document.addEventListener('DOMContentLoaded', () =>
+    ReactDOM.render(
     	<Provider store={store} >
     		<Layout />
-    	</Provider>, 
-        document.getElementById('app')
+    	</Provider>, document.getElementById('app'))
 );

@@ -22,12 +22,12 @@ export class Landing extends React.Component {
 	onClickNext() {
 		console.log('NEXT')
 		if (this.props.renderPage < 7) {
-		this.props.dispatch(actions.incrementRenderView())	
+		this.props.dispatch(actions.incrementRenderView())
 		}
 	}
 
   	componentDidMount() {
-  		this.props.dispatch(actions.asyncFetchAllCategories());
+  		this.props.dispatch(actions.fetchAllCategories());
   	}
 
 
@@ -41,7 +41,7 @@ export class Landing extends React.Component {
   			}
 		}
 		if (categoryIndex === -1) {
-			this.props.dispatch(actions.asyncAddExpenseCategory(textInput))
+			this.props.dispatch(actions.addExpenseCategory(textInput))
 		}
 		this.refs.newCategory.value = "";
 	};
@@ -50,7 +50,7 @@ export class Landing extends React.Component {
 
 
 	render() {
-	
+
 	return (
     <div className="container ">
             <div className="landingContainer" >
@@ -75,15 +75,15 @@ export class Landing extends React.Component {
             </div>
         </div>
     </div>
-    
-			
+
+
 	)}
 }
 
 const mapStateToProps = (state, props) => ({
 	categories: state.categories,
 	renderPage: state.renderPage
-	
+
 });
 
 export default connect(mapStateToProps)(Landing);

@@ -6,14 +6,14 @@ import store from '../store';
 
 
 const initialState = {
-    _id: '',
-    googleId: '',
-    accessToken: '',
-    name: '',
-	categories: [],
-	expenses: [],
-	goals: [],
-	
+  _id: '',
+  googleId: '',
+  accessToken: '',
+  name: '',
+	expenses: null,
+	goals: null,
+	categories: null,
+
 	categoryTotals: [],
 	currentCategory: 'All',
 	calendar: calendar,
@@ -26,12 +26,12 @@ export const mainReducer = (state= initialState, action) => {
         setTimeout(()=> { console.log(store.getState(), "THIS IS THE MAP_USER_TO_STORE GETSTATE()")}, 3000);
         return update(state, {
             _id: {$set: action.userData._id},
-            googleId: {$set: action.userData.googleId},                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+            googleId: {$set: action.userData.googleId},
             accessToken: {$set: action.userData.accessToken},
             name: {$set: action.userData.name},
-			categories: {$set: action.userData.categories},
-			expenses: {$set: action.userData.expenses},
-			goals: {$set: action.userData.goals}
+      			categories: {$set: action.userData.categories},
+      			expenses: {$set: action.userData.expenses},
+      			goals: {$set: action.userData.goals}
         })
     }
 
@@ -55,7 +55,7 @@ export const mainReducer = (state= initialState, action) => {
 		setTimeout(()=> { console.log(store.getState(), "THIS IS THE EXPENSE GETSTATE")}, 3000);
 		return update(state, {
 			expenses: {$push: [newObj]}
-		})	
+		})
 	}
 
 	if (action.type === actions.ADD_CATEGORY_GOAL) {
@@ -74,30 +74,30 @@ export const mainReducer = (state= initialState, action) => {
 		})
 	}
 
-	if (action.type === actions.FETCH_ALL_CATEGORIES) {
-		let categories = action.categories;
-		setTimeout(()=> { console.log(store.getState(), "THIS IS THE FETCH categories GETSTATE")}, 3000);
-		return update(state, {
-			categories: {$set: categories}
-		})		
-	}
+	// if (action.type === actions.FETCH_ALL_CATEGORIES) {
+	// 	let categories = action.categories;
+	// 	setTimeout(()=> { console.log(store.getState(), "THIS IS THE FETCH categories GETSTATE")}, 3000);
+	// 	return update(state, {
+	// 		categories: {$set: categories}
+	// 	})
+	// }
 
-	if (action.type === actions.FETCH_ALL_GOALS) {
-		let goals = action.goals;
-		setTimeout(()=> { console.log(store.getState(), "THIS IS THE FETCH goals GETSTATE")}, 3000);
-		return update(state, {
-			goals: {$set: goals}
-		})		
-	}
+	// if (action.type === actions.FETCH_ALL_GOALS) {
+	// 	let goals = action.goals;
+	// 	setTimeout(()=> { console.log(store.getState(), "THIS IS THE FETCH goals GETSTATE")}, 3000);
+	// 	return update(state, {
+	// 		goals: {$set: goals}
+	// 	})
+	// }
 
-	if (action.type === actions.FETCH_ALL_TRANSACTIONS) {
-		let transactions = action.transactions;
-		setTimeout(()=> { console.log(store.getState(), "THIS IS THE FETCH transactions GETSTATE")}, 3000);
-		return update(state, {
-			expenses: {$set: [transactions]},
-		})		
-	}
-	
+	// if (action.type === actions.FETCH_ALL_TRANSACTIONS) {
+	// 	let transactions = action.transactions;
+	// 	setTimeout(()=> { console.log(store.getState(), "THIS IS THE FETCH transactions GETSTATE")}, 3000);
+	// 	return update(state, {
+	// 		expenses: {$set: [transactions]},
+	// 	})
+	// }
+
 	if (action.type === actions.CHANGE_CURRENT_CATEGORY) {
 		setTimeout(()=> { console.log(store.getState(), "This is test for change currentCategory")}, 3000);
 		return update(state, {
@@ -111,7 +111,7 @@ export const mainReducer = (state= initialState, action) => {
 			displayTransactions: {$merge: {startDate: action.startDate}}
 		})
 	}
-	
+
 	if (action.type === actions.DISPLAY_TRANSACTION_END_DATE) {
 		setTimeout(()=> { console.log(store.getState(), "This is test for change display end date")}, 3000);
 		return update(state, {

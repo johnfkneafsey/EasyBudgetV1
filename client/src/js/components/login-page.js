@@ -1,20 +1,22 @@
 import React from 'react';
 import {SERVER_ROOT} from '../config';
 
+
+
 export default function LoginPage() {
     return (
-        
+
         <div>
             <nav id="mainNav" className="navbar navbar-default navbar-fixed-top navbar-custom">
                 <div className="container">
-                
+
                     <div className="navbar-header page-scroll">
                         <button type="button" className="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                             <span className="sr-only">Toggle navigation</span> Menu <i className="fa fa-bars"></i>
                         </button>
                         <a className="navbar-brand" href="#page-top">Easy Budget</a>
                     </div>
-                    
+
                     <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul className="nav navbar-nav navbar-right">
                             <li className="hidden">
@@ -32,13 +34,13 @@ export default function LoginPage() {
                         </ul>
                     </div>
                 </div>
-                <div className="green-bar"> 
+                <div className="green-bar">
                 </div>
             </nav>
 
             <header>
                 <div className="container">
-                    
+
                     <div className="row">
 
                         <div className="col-lg-12">
@@ -54,8 +56,8 @@ export default function LoginPage() {
                         </div>
 
                     </div>
-                    
-                
+
+
                 </div>
             </header>
         </div>
@@ -64,6 +66,3 @@ export default function LoginPage() {
 
 
     )}
-
-
-

@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import * as actions from '../actions/index';
 import store from '../store';
 
-
 export class CategoryGoals extends React.Component {
 	constructor(props) {
     	super(props);
@@ -16,7 +15,6 @@ export class CategoryGoals extends React.Component {
     	this.onClickNext = this.onClickNext.bind(this);
   	}
 
-
 	onClickBack() {
 		console.log('PREV');
 		if (this.props.renderPage > 1) {
@@ -27,14 +25,9 @@ export class CategoryGoals extends React.Component {
 	onClickNext() {
 		console.log('NEXT')
 		if (this.props.renderPage < 7) {
-		this.props.dispatch(actions.incrementRenderView())	
+		this.props.dispatch(actions.incrementRenderView())
 		}
 	}
-
-
-  	componentDidMount() {
-  		this.props.dispatch(actions.asyncFetchAllGoals());
-  	}
 
 
 	onSubmit(event) {
@@ -48,7 +41,7 @@ export class CategoryGoals extends React.Component {
 			}
   		}
 		if (goalIndex === -1) {
-			this.props.dispatch(actions.asyncAddCategoryGoal(goalCategory,categoryAmount));
+			this.props.dispatch(actions.addCategoryGoal(goalCategory,categoryAmount));
 		}
 		this.refs.dollars.value = "";
 	};
@@ -59,7 +52,7 @@ export class CategoryGoals extends React.Component {
 				return 'glyphicon glyphicon-ok';
 			}
 		}
-			return 'glyphicon glyphicon-option-horizontal';	
+			return 'glyphicon glyphicon-option-horizontal';
 	}
 
 	getBudget(categoryName) {
@@ -72,8 +65,8 @@ export class CategoryGoals extends React.Component {
 
 	getTotalBudget() {
 		let totalBudget = 0;
-		for (let i = 0; i < this.props.goals.length; i++) {	
-			totalBudget += this.props.goals[i].goal;	
+		for (let i = 0; i < this.props.goals.length; i++) {
+			totalBudget += this.props.goals[i].goal;
 		}
 		return totalBudget.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
 	}
@@ -87,14 +80,14 @@ export class CategoryGoals extends React.Component {
 			return (
 				<div key={index} className="shrink-div">
 					<p key={index+10} className='budgets'>{category.name.capitalize()}  :  ${this.getBudget(category.name)}</p>
-					<span key={index+50} className={this.completeStatus(category.name) + ' centerMarks'} aria-hidden="true"></span>  
+					<span key={index+50} className={this.completeStatus(category.name) + ' centerMarks'} aria-hidden="true"></span>
 				</div>
 			);
 		})
 
-		let totalBudget = 
+		let totalBudget =
 			<b><p className='budgets'>Total  :  ${this.getTotalBudget()}</p></b>
-			
+
 
 
 		let options = this.props.categories.map((category, index) => {
@@ -117,7 +110,7 @@ export class CategoryGoals extends React.Component {
 							</button>
 							<a className="navbar-brand" href="#page-top">Easy Budget</a>
 						</div>
-						
+
 						<div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 							<ul className="nav navbar-nav navbar-right">
 								<li className="hidden">
@@ -135,7 +128,7 @@ export class CategoryGoals extends React.Component {
 							</ul>
 						</div>
 
-						<div className="green-bar"> 
+						<div className="green-bar">
 						</div>
 					</div>
 
@@ -146,7 +139,7 @@ export class CategoryGoals extends React.Component {
 							<button className=" glyphicon glyphicon-chevron-left directionalButtons" onClick={() => this.onClickBack()} ></button>
 							<button className=" glyphicon glyphicon-chevron-right directionalButtons" onClick={() => this.onClickNext()} ></button>
 						</div>
-			
+
 
 					<div className="page-header makeColoredHeader">
 						<h1 className="stepHeaders">Step 2:</h1>
@@ -161,8 +154,8 @@ export class CategoryGoals extends React.Component {
 								</select>
 							<br></br>
 							<label>Set a budget</label>
-								<input type="text" className="form-control" placeholder="Enter dollar amount" ref="dollars" required />					
-							<br></br>	
+								<input type="text" className="form-control" placeholder="Enter dollar amount" ref="dollars" required />
+							<br></br>
 								<input type="submit" className="btn btn-primary"/>
 						</form>
 					</div>
@@ -180,7 +173,7 @@ export class CategoryGoals extends React.Component {
 				</div>
 
 			</div>
-		
+
 		)}
 	}
 

@@ -23,17 +23,19 @@ export class ExpenseCategoryList extends React.Component {
 	onClickNext() {
 		console.log('NEXT')
 		if (this.props.renderPage < 7) {
-		this.props.dispatch(actions.incrementRenderView())	
+		this.props.dispatch(actions.incrementRenderView())
 		}
 	}
 
-  	componentDidMount() {
-  		this.props.dispatch(actions.asyncFetchAllCategories());
-  	}
+	componentDidMount() {
+		this.props.dispatch(actions.fetchAllCategories());
+	}
 
 	onSubmit(category) {
 		category.preventDefault();
 		let textInput = (this.refs.newCategory).value.toLowerCase();
+
+
 		let categoryIndex = -1;
 		for (let i = 0; i < this.props.categories.length; i++) {
   			if (this.props.categories[i].name === textInput) {
@@ -41,8 +43,10 @@ export class ExpenseCategoryList extends React.Component {
   			}
 		}
 		if (categoryIndex === -1) {
-			this.props.dispatch(actions.asyncAddExpenseCategory(textInput))
+			this.props.dispatch(actions.addExpenseCategory(textInput))
 		}
+
+
 		this.refs.newCategory.value = "";
 	};
 
@@ -55,24 +59,27 @@ export class ExpenseCategoryList extends React.Component {
     		return this.charAt(0).toUpperCase() + this.slice(1);
 		}
 
-		let categories = this.props.categories.map((category,index)=>{
-			return (
-				<li key={index} className="list-group-item">{category.name.capitalize()}</li>
-			);
-		})
+		let categories;
+		if (this.props.categories) {
+			categories = this.props.categories.map((category,index)=>{
+				return (
+					<li key={index} className="list-group-item">{category.name.capitalize()}</li>
+				);
+			})
+		}
 
 		return (
 			<div className="container">
 				<nav id="mainNav" className="navbar navbar-default navbar-fixed-top navbar-custom topNavComponents">
 					<div className="container">
-					
+
 						<div className="navbar-header page-scroll">
 							<button type="button" className="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
 								<span className="sr-only">Toggle navigation</span> Menu <i className="fa fa-bars"></i>
 							</button>
 							<a className="navbar-brand" href="#page-top">Easy Budget</a>
 						</div>
-						
+
 						<div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 							<ul className="nav navbar-nav navbar-right">
 								<li className="hidden">
@@ -90,7 +97,7 @@ export class ExpenseCategoryList extends React.Component {
 							</ul>
 						</div>
 					</div>
-					<div className="green-bar"> 
+					<div className="green-bar">
 					</div>
 				</nav>
 
@@ -99,7 +106,7 @@ export class ExpenseCategoryList extends React.Component {
 						<div className="buttons">
 							<button className=" glyphicon glyphicon-chevron-right directionalButtons" onClick={() => this.onClickNext()} ></button>
 						</div>
-						
+
 						<div className="page-header makeColoredHeader">
 							<h1 className="stepHeaders">Step 1:</h1>
 							<h3 className="steps"> Categorize your expenses</h3>
@@ -107,12 +114,12 @@ export class ExpenseCategoryList extends React.Component {
 
 						<div className="submitNewExpenseCategory">
 							<form onSubmit={this.onSubmit}>
-								<label>Add a category below</label> 
+								<label>Add a category below</label>
 								<p></p>
 								<input type="text"  className="form-control" placeholder="i.e. Food/Entertainment"
-								ref="newCategory"/>	
+								ref="newCategory"/>
 								<p></p>
-								<input type="submit" className="btn btn-primary"/>				
+								<input type="submit" className="btn btn-primary"/>
 							</form>
 						</div>
 
@@ -132,7 +139,7 @@ export class ExpenseCategoryList extends React.Component {
 const mapStateToProps = (state, props) => ({
 	categories: state.categories,
 	renderPage: state.renderPage
-	
+
 });
 
 export default connect(mapStateToProps)(ExpenseCategoryList);

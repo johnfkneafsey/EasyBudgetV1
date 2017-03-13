@@ -8,8 +8,8 @@ import store from '../store';
 export class ExpenseSummary extends React.Component {
 	constructor(props) {
     	super(props);
-		this.getTotalBudget = this.getTotalBudget.bind(this);
-		this.getTotalSpent = this.getTotalSpent.bind(this);
+			this.getTotalBudget = this.getTotalBudget.bind(this);
+			this.getTotalSpent = this.getTotalSpent.bind(this);
     	this.onClickBack = this.onClickBack.bind(this);
     	this.onClickNext = this.onClickNext.bind(this);
   	}
@@ -25,30 +25,30 @@ export class ExpenseSummary extends React.Component {
 	onClickNext() {
 		console.log('NEXT')
 		if (this.props.renderPage < 7) {
-		this.props.dispatch(actions.incrementRenderView())	
+			this.props.dispatch(actions.incrementRenderView())
 		}
 	}
 
 
-  	componentDidMount() {
-  		this.props.dispatch(actions.asyncFetchAllGoals());
-		this.props.dispatch(actions.asyncFetchAllTransactions());
-  	}
+  // componentDidMount() {
+  // 	this.props.dispatch(actions.fetchAllGoals());
+	// 	this.props.dispatch(actions.fetchAllTransactions());
+  // 	}
 
 	getTotalBudget() {
 		let totalBudget = 0;
-		for (let i = 0; i < this.props.goals.length; i++) {	
-			totalBudget += this.props.goals[i].goal;	
+		for (let i = 0; i < this.props.goals.length; i++) {
+			totalBudget += this.props.goals[i].goal;
 		}
 		return totalBudget
 	}
 
 	getTotalSpent() {
 		let totalSpent = 0;
-		let placeholder = this.props.expenses[0];
+		let placeholder = this.props.expenses;
 		if (placeholder) {
-			for (let i = 0; i < placeholder.length; i++) {	
-				totalSpent += placeholder[i].cost;	
+			for (let i = 0; i < placeholder.length; i++) {
+				totalSpent += placeholder[i].cost;
 			}
 			return totalSpent
 		}
@@ -57,15 +57,15 @@ export class ExpenseSummary extends React.Component {
 
     render() {
 
-    
+
 		let totalExpenses = {}
 		let divStyle = {width: '60%'}
-		
+
 		for (let i=0; i<this.props.categories.length; i++) {
 			let temp = this.props.categories[i].name;
 			totalExpenses[temp] = 0;
-			for(let k=0; k<this.props.expenses[0].length; k++){
-				let newTemp = this.props.expenses[0];
+			for(let k=0; k<this.props.expenses.length; k++){
+				let newTemp = this.props.expenses;
 				if (newTemp[k].category === temp) {
 					totalExpenses[temp] += newTemp[k].cost;
 				}
@@ -99,10 +99,10 @@ export class ExpenseSummary extends React.Component {
 					<td className="center">${totalExpenses[otherTemp].toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")}</td>
 					<td className="center">${goal.goal.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")}</td>
 					<div className="progress">
-						<div className="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="{percentageVal}" aria-valuemin="0" aria-valuemax="100" style={divStyle}> 
+						<div className="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="{percentageVal}" aria-valuemin="0" aria-valuemax="100" style={divStyle}>
 							{percentageVal}%
 						</div>
-					</div>	
+					</div>
 				</tr>
 			);
 		})
@@ -116,13 +116,13 @@ export class ExpenseSummary extends React.Component {
 
 		let totalDivStyle = {width: `${percentageValue}%`}
 
-		let totals = 
+		let totals =
 			<tr className="summaryTotal">
 				<td className="category-title"><b><h5>Total</h5></b></td>
 				<td className="center"><b><h5>${this.getTotalSpent().toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")}</h5></b></td>
 				<td className="center"><b><h5>${this.getTotalBudget().toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")}</h5></b></td>
 				<div className="progress">
-					<div className="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="{percentageValue}" aria-valuemin="0" aria-valuemax="100" style={totalDivStyle}> 
+					<div className="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="{percentageValue}" aria-valuemin="0" aria-valuemax="100" style={totalDivStyle}>
 						{percentageValue}%
 					</div>
 				</div>
@@ -138,7 +138,7 @@ export class ExpenseSummary extends React.Component {
                         </button>
                         <a className="navbar-brand" href="#page-top">Easy Budget</a>
                     </div>
-                    
+
                     <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul className="nav navbar-nav navbar-right">
                             <li className="hidden">
@@ -172,7 +172,7 @@ export class ExpenseSummary extends React.Component {
 						<th><h4><u>Category</u></h4></th>
 						<th><h4 className="center"><u className="center">Spent</u></h4></th>
 						<th><h4 className="center"><u className="center">Budget</u></h4></th>
-						<th className="center-percentages"><h4><u>Percent of Budget Used</u></h4></th>							
+						<th className="center-percentages"><h4><u>Percent of Budget Used</u></h4></th>
 					</tr>
 						{goals}
 					<tr className="center-no-height">
@@ -180,13 +180,13 @@ export class ExpenseSummary extends React.Component {
 						<td className="center"><b className="center">__________</b></td>
 						<td className="center"><b className="center">__________</b></td>
 						<td className="center"><b className="center">________________________________________________________________________________</b></td>
-					</tr>					
+					</tr>
 						{totals}
 				</table>
 			</div>
 		</div>
-		
-		
+
+
     )}
 }
 

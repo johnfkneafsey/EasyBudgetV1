@@ -27,32 +27,32 @@ export class DisplayTransactions extends React.Component {
 	onClickNext() {
 		console.log('NEXT')
 		if (this.props.renderPage < 7) {
-		this.props.dispatch(actions.incrementRenderView())	
+		this.props.dispatch(actions.incrementRenderView())
 		}
 	}
 
-	componentDidMount() {
-		this.props.dispatch(actions.asyncFetchCalendar());
-		this.props.dispatch(actions.asyncFetchAllTransactions());
-	} 
+	// componentDidMount() {
+	// 	this.props.dispatch(actions.fetchCalendar());
+	// 	this.props.dispatch(actions.fetchAllTransactions());
+	// }
 
   	handleChangeStartDate(value, formattedValue) {
 		this.props.dispatch(actions.displayTransactionStartDate(formattedValue));
  	}
 
-  	handleChangeEndDate(value, formattedValue) {		
+  	handleChangeEndDate(value, formattedValue) {
 		this.props.dispatch(actions.displayTransactionEndDate(formattedValue));
  	}
 
 
 	onClick(expenseId) {
-		this.props.dispatch(actions.asyncDeleteExpense(expenseId));
-		this.props.dispatch(actions.asyncFetchAllTransactions());
+		this.props.dispatch(actions.deleteExpense(expenseId));
+		this.props.dispatch(actions.fetchAllTransactions());
 	}
 
 	handleChange() {
 		let tempCategory = (this.refs.expenseCategory).value;
-		this.props.dispatch(actions.asyncFetchAllTransactions());
+		this.props.dispatch(actions.fetchAllTransactions());
 		this.props.dispatch(actions.changeCurrentCategory(tempCategory));
 	}
 
@@ -72,20 +72,21 @@ export class DisplayTransactions extends React.Component {
 		let transactionsBlurb;
 		if (this.props.displayTransactions.startDate || this.props.displayTransactions.endDate) {
 			transactionsBlurb = <h3>Showing <span className="greenie" >{this.props.currentCategory}</span> transactions between <span className="greenie" >{this.props.displayTransactions.startDate}</span> and <span className="greenie" >{this.props.displayTransactions.endDate}</span> </h3>
-		}					
-					
+		}
+
 		let listOfTransactions;
-		if (this.props.expenses[0]) {
+		if (this.props.expenses) {
 			if (this.props.currentCategory === "All") {
-				listOfTransactions = this.props.expenses[0].map((transaction, index) => {
+				listOfTransactions = this.props.expenses.map((transaction, index) => {
 				for (let i = this.props.calendar.indexOf(this.props.displayTransactions.startDate); i <= this.props.calendar.indexOf(this.props.displayTransactions.endDate); i++) {
-					if (this.props.calendar[i] === transaction.date) {	
+					if (this.props.calendar[i] === transaction.date) {
 						return (
-							<tr key={index}><td className="left">{transaction.date}</td><td className="left">{transaction.category.capitalize()}</td><td className="left">${transaction.cost.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")}</td><td className="left">{transaction.description}</td><td className="alignRemoveMarker" ><button className="glyphicon glyphicon-remove left" onClick={() => this.onClick(transaction.id)} value={transaction.id} type="submit"></button></td></tr>
+							<tr key={index}><td className="left">{transaction.date}</td><td className="left">{transaction.category.capitalize()}</td><td className="left">${transaction.cost.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")}</td> <td
+							className="left">{transaction.description}</td><td className="alignRemoveMarker" ><button className="glyphicon glyphicon-remove left" onClick={() => this.onClick(transaction.id)} value={transaction.id} type="submit"></button></td></tr>
 				)
 				}}})
 			} else {
-				listOfTransactions = this.props.expenses[0].filter(transaction => {
+				listOfTransactions = this.props.expenses.filter(transaction => {
 					return (
 						transaction.category == this.props.currentCategory)}).map((transaction, index) => {
 							for (let i = this.props.calendar.indexOf(this.props.displayTransactions.startDate); i < this.props.calendar.indexOf(this.props.displayTransactions.endDate); i++) {
@@ -100,14 +101,14 @@ export class DisplayTransactions extends React.Component {
 		<div>
             <nav id="mainNav" className="navbar navbar-default navbar-fixed-top navbar-custom">
                 <div className="container">
-                
+
                     <div className="navbar-header page-scroll">
                         <button type="button" className="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                             <span className="sr-only">Toggle navigation</span> Menu <i className="fa fa-bars"></i>
                         </button>
                         <a className="navbar-brand" href="#page-top">Easy Budget</a>
                     </div>
-                    
+
                     <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul className="nav navbar-nav navbar-right">
                             <li className="hidden">
@@ -125,7 +126,7 @@ export class DisplayTransactions extends React.Component {
                         </ul>
                     </div>
                 </div>
-                <div className="green-bar"> 
+                <div className="green-bar">
                 </div>
             </nav>
 			<div className="container">
@@ -139,19 +140,19 @@ export class DisplayTransactions extends React.Component {
 					</div>
 					<br></br>
 					<form >
-						<label>Choose a category,</label>				
+						<label>Choose a category,</label>
 						<select name="expenseCategory" id='expenseCategory' className="form-control center-dropdown" value={this.value} ref="expenseCategory" onChange={this.handleChange} required>
-							<option value="All">All</option>					
+							<option value="All">All</option>
 							{options}
 						</select>
-						<br></br>	
+						<br></br>
 						<label className='' >a start date,</label>
 						<DatePicker  className='calendarToggle' id="example-datepicker-start"   ref="datePicked" onChange={this.handleChangeStartDate}   placeholderText={this.props.displayTransactions.startDate} />
 						<br></br>
 						<label className='' >and an end date</label>
 						<DatePicker  className='calendarToggle' id="example-datepicker-end"   ref="datePicked" onChange={this.handleChangeEndDate}   placeholderText={this.props.displayTransactions.endDate}/>
 						<br></br>
-						
+
 					</form>
 						{transactionsBlurb}
 						<br></br>

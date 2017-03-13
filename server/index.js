@@ -41,7 +41,7 @@ passport.use(
     (accessToken, refreshToken, profile, cb) => {
 
         User
-            .findOne({googleId: profile.id}) 
+            .findOne({googleId: profile.id})
             .exec()
             .then(user => {
                 if (!user) {
@@ -50,9 +50,9 @@ passport.use(
                         googleId: profile.id,
                         accessToken: accessToken,
                         name: profile.displayName,
-                        categories: null,
-                        expenses: null,
-                        goals: null
+                        categories: [],
+                        expenses: [],
+                        goals: []
 
                     }
                     console.log('NEW USER ', newUser)
@@ -64,7 +64,7 @@ passport.use(
                     return User
                         .findOneAndUpdate({"googleId" : profile.id}, {$set:{accessToken : accessToken}}, {new: true})
                 }
-            })             
+            })
             .then(user => {
                 console.log('USER ',user)
                 return cb(null, user)
@@ -118,7 +118,7 @@ app.get('/auth/logout', (req, res) => {
     req.logout();
     res.clearCookie('accessToken');
     res.redirect('http://localhost:3000');
-    
+
 });
 
 app.put('/api/logout', jsonParser, (req, res) => {
@@ -168,7 +168,7 @@ app.post('/category', jsonParser, (req, res) => {
 app.post('/expense', jsonParser, (req, res) => {
     Expense
         .create({
-            category: req.body.category,    
+            category: req.body.category,
             cost: req.body.cost,
             description: req.body.description,
             date: req.body.date
@@ -186,7 +186,7 @@ app.post('/goal', jsonParser, (req, res) => {
     Goal
         .create({
             category: req.body.category,
-            goal: req.body.goal 
+            goal: req.body.goal
         })
         .then(goal => {
             res.status(201).json(goal.apiRepr())
@@ -407,7 +407,7 @@ module.exports = {
 // passport.use(
 //     new BearerStrategy(
 //         (token, done) => {
-//             // Job 3: Update this callback to try to find a user with a 
+//             // Job 3: Update this callback to try to find a user with a
 //             // matching access token.  If they exist, let em in, if not,
 //             // don't.
 //             if (!(token in database)) {

@@ -44,8 +44,8 @@ export class ExpenseChart extends React.Component {
 		for (let i=0; i<this.props.categories.length; i++) {
 			let temp = this.props.categories[i].name;
 			totalExpenses[temp] = 0;
-			for(let k=0; k<this.props.expenses[0].length; k++){
-				let newTemp = this.props.expenses[0];
+			for(let k=0; k<this.props.expenses.length; k++){
+				let newTemp = this.props.expenses;
 				if (newTemp[k].category === temp) {
 					totalExpenses[temp] += newTemp[k].cost;
 				}
@@ -111,8 +111,8 @@ export class ExpenseChart extends React.Component {
 		for (let i=0; i<this.props.categories.length; i++) {
 			let temp = this.props.categories[i].name;
 			totalExpenses[temp] = 0;
-			for(let k=0; k<this.props.expenses[0].length; k++){
-				let newTemp = this.props.expenses[0];
+			for(let k=0; k<this.props.expenses.length; k++){
+				let newTemp = this.props.expenses;
 				if (newTemp[k].category === temp) {
 					totalExpenses[temp] += newTemp[k].cost;
 				}
@@ -174,9 +174,9 @@ export class ExpenseChart extends React.Component {
         let expensesArray = [];
         for (let k = 0; k < dateArray.length; k++) {
             let dailyExpenses = 0;
-            for (let j = 0; j < this.props.expenses[0].length; j++) {
-                if (dateArray[k] == this.props.expenses[0][j].date) {
-                    dailyExpenses += this.props.expenses[0][j].cost;
+            for (let j = 0; j < this.props.expenses.length; j++) {
+                if (dateArray[k] == this.props.expenses[j].date) {
+                    dailyExpenses += this.props.expenses[j].cost;
                 }
             }
             expensesArray.push(dailyExpenses); 

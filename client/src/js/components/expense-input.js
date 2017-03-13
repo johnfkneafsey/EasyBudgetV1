@@ -27,15 +27,15 @@ export class ExpenseInput extends React.Component {
 	onClickNext() {
 		console.log('NEXT')
 		if (this.props.renderPage < 7) {
-		this.props.dispatch(actions.incrementRenderView())	
+		this.props.dispatch(actions.incrementRenderView())
 		}
 	}
 
 
   	handleChange(value, formattedValue) {
     	console.log({
-    	  value: value, 
-     	  formattedValue: formattedValue 
+    	  value: value,
+     	  formattedValue: formattedValue
     	});
  	}
 
@@ -49,19 +49,19 @@ export class ExpenseInput extends React.Component {
         let expenseCategory = (this.refs.expenseCategory).value.trim();
         let expenseDescription = (this.refs.description).value.trim();
         let dateSelected = document.getElementById("example-datepicker").getAttribute('data-formattedvalue');
-	    this.props.dispatch(actions.asyncAddExpense(expenseDollars, expenseCategory, expenseDescription, dateSelected));
+	    this.props.dispatch(actions.addExpense(expenseDollars, expenseCategory, expenseDescription, dateSelected));
 	    this.refs.dollars.value = "";
 	    this.refs.expenseCategory.value = "";
 	    this.refs.description.value = "";
-		this.props.dispatch(actions.asyncFetchAllTransactions());
+		this.props.dispatch(actions.fetchAllTransactions());
 	}
 
-  	render() {	
+  	render() {
 
 		String.prototype.capitalize = function() {
     		return this.charAt(0).toUpperCase() + this.slice(1);
 		}
-			
+
 		let options = this.props.categories.map((category,index)=>{
 			return (
 				<option key={index} value={category.name} className="center-input-text">{category.name.capitalize()}</option>
@@ -72,14 +72,14 @@ export class ExpenseInput extends React.Component {
 		<div>
             <nav id="mainNav" className="navbar navbar-default navbar-fixed-top navbar-custom">
                 <div className="container">
-                
+
                     <div className="navbar-header page-scroll">
                         <button type="button" className="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                             <span className="sr-only">Toggle navigation</span> Menu <i className="fa fa-bars"></i>
                         </button>
                         <a className="navbar-brand" href="#page-top">Easy Budget</a>
                     </div>
-                    
+
                     <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul className="nav navbar-nav navbar-right">
                             <li className="hidden">
@@ -97,7 +97,7 @@ export class ExpenseInput extends React.Component {
                         </ul>
                     </div>
                 </div>
-                <div className="green-bar"> 
+                <div className="green-bar">
                 </div>
             </nav>
 			<div className="container">
@@ -113,23 +113,23 @@ export class ExpenseInput extends React.Component {
 					<div>
 						<form onSubmit={this.onSubmit}>
 							<label className="datePicker">When did it occur?</label>
-							<br></br>					
+							<br></br>
 							<DatePicker  id="example-datepicker" ref="datePicked" className="datePicker" onChange={this.handleChange} />
-							<br></br>	
+							<br></br>
 							<label> What did it cost? </label>
-							<br></br>						
+							<br></br>
 							<input type="text" className="form-control" ref="dollars" placeholder="Enter dollar amount" required/>
-							<br></br>	
+							<br></br>
 							<label className="category" >How would you categorize this?</label>
-							<br></br>	
+							<br></br>
 							<select name="expenseCategory" id='expenseCategory' className="form-control center-dropdown" value={this.value} ref="expenseCategory" required>
 									{options}
 							</select>
-							<br></br>	
+							<br></br>
 						<label> Describe the expense</label>
-							<br></br>										
+							<br></br>
 						<input type="text" className="form-control" ref="description" placeholder="Enter a description" required/>
-							<br></br>	
+							<br></br>
 							<input type="submit" className="btn btn-primary"/>
 						</form>
 					</div>

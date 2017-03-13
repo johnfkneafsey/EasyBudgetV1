@@ -1,80 +1,80 @@
 import store from '../store'
 
-
-export const asyncAddExpenseCategory = (category) => dispatch => {
-	return fetch('/category', {
-		method: 'post',
-		headers: {
-			Accept: 'application/json',
-			'Content-Type': 'application/json'
-		},
-		body: JSON.stringify({name: category})
-	})
-	.then(res => {
-		if (!res.ok) {
-				throw new Error(res.statusText);
-		}
-		return res.json();
-	})
-	.then(_res => {
-		return dispatch(addExpenseCategory(_res.name))
-	})
-	.catch(error => {
-		return error;
-	})
-}
-
-
-export const asyncAddExpense = (dollars, category, description, date) => dispatch => {
-	return fetch('/expense', {
-		method: 'post',
-		headers: {
-			Accept: 'application/json',
-			'Content-Type': 'application/json'
-		},
-		body: JSON.stringify({category: category, 
-							  cost: dollars, 
-							  description: description, 
-							  date: date})
-	})
-	.then(res => {
-		if (!res.ok) {
-			throw new Error(res.statusText);			
-		}
-		return res.json();
-	})
-	.then(_res => {
-		return dispatch(addExpense(_res.cost, _res.category, _res.description, _res.date))
-	})
-	.catch(error => {
-		return error;
-	})
-}
+//
+// export const asyncAddExpenseCategory = (category) => dispatch => {
+// 	return fetch('/category', {
+// 		method: 'post',
+// 		headers: {
+// 			Accept: 'application/json',
+// 			'Content-Type': 'application/json'
+// 		},
+// 		body: JSON.stringify({name: category})
+// 	})
+// 	.then(res => {
+// 		if (!res.ok) {
+// 				throw new Error(res.statusText);
+// 		}
+// 		return res.json();
+// 	})
+// 	.then(_res => {
+// 		return dispatch(addExpenseCategory(_res.name))
+// 	})
+// 	.catch(error => {
+// 		return error;
+// 	})
+// }
 
 
-export const asyncAddCategoryGoal = (category, dollars) => dispatch => {
-	return fetch('/goal', {
-		method: 'post',
-		headers: {
-			Accept: 'application/json',
-			'Content-Type': 'application/json'
-		},
-		body: JSON.stringify({category: category, 
-							  goal: dollars})
-	})
-	.then(res => {
-		if (!res.ok) {
-			throw new Error(res.statusText);			
-		}
-		return res.json();
-	})
-	.then(_res => {
-		return dispatch(addCategoryGoal(_res.category, _res.goal))
-	})
-	.catch(error => {
-		return error;
-	})
-}
+// export const asyncAddExpense = (dollars, category, description, date) => dispatch => {
+// 	return fetch('/expense', {
+// 		method: 'post',
+// 		headers: {
+// 			Accept: 'application/json',
+// 			'Content-Type': 'application/json'
+// 		},
+// 		body: JSON.stringify({category: category,
+// 							  cost: dollars,
+// 							  description: description,
+// 							  date: date})
+// 	})
+// 	.then(res => {
+// 		if (!res.ok) {
+// 			throw new Error(res.statusText);
+// 		}
+// 		return res.json();
+// 	})
+// 	.then(_res => {
+// 		return dispatch(addExpense(_res.cost, _res.category, _res.description, _res.date))
+// 	})
+// 	.catch(error => {
+// 		return error;
+// 	})
+// }
+
+
+// export const asyncAddCategoryGoal = (category, dollars) => dispatch => {
+// 	return fetch('/goal', {
+// 		method: 'post',
+// 		headers: {
+// 			Accept: 'application/json',
+// 			'Content-Type': 'application/json'
+// 		},
+// 		body: JSON.stringify({category: category,
+// 							  goal: dollars})
+// 	})
+// 	.then(res => {
+// 		if (!res.ok) {
+// 			throw new Error(res.statusText);
+// 		}
+// 		return res.json();
+// 	})
+// 	.then(_res => {
+// 		return dispatch(addCategoryGoal(_res.category, _res.goal))
+// 	})
+// 	.catch(error => {
+// 		return error;
+// 	})
+// }
 
 export const asyncFetchAllCategories = () => dispatch => {
   	return fetch('/category')
@@ -82,7 +82,7 @@ export const asyncFetchAllCategories = () => dispatch => {
 		if (!res.ok) {
 			throw new Error(res.statusText);
     	}
-    	return res.json(); 
+    	return res.json();
   	})
   	.then(_res => {
      	dispatch(fetchAllCategories(_res))
@@ -98,7 +98,7 @@ export const asyncFetchAllGoals = () => dispatch => {
 		if (!res.ok) {
 			throw new Error(res.statusText);
     	}
-    	return res.json(); 
+    	return res.json();
   	})
   	.then(_res => {
      	dispatch(fetchAllGoals(_res))
@@ -114,7 +114,7 @@ export const asyncFetchAllTransactions = (category='All') => dispatch => {
 		if (!res.ok) {
 			throw new Error(res.statusText);
     	}
-    	return res.json(); 
+    	return res.json();
   	})
   	.then(_res => {
      	dispatch(fetchAllTransactions(_res))
@@ -125,53 +125,53 @@ export const asyncFetchAllTransactions = (category='All') => dispatch => {
 };
 
 
-export const asyncGetCategoryTotals = () => dispatch => {
-  	return fetch('/total')
-  	.then(res => {
-		if (!res.ok) {
-			throw new Error(res.statusText);
-    	}
-    	return res.json(); 
-  	})
-	.then(res => {
-		if (!res.ok) {
-			throw new Error(res.statusText);			
-		}
-		return res.json();
-	})
-	.then(_res => {
-		return dispatch(getCategoryTotals(_res))
-	})
-	.catch(error => {
-		return error;
-	})
-}
+// export const asyncGetCategoryTotals = () => dispatch => {
+//   	return fetch('/total')
+//   	.then(res => {
+// 		if (!res.ok) {
+// 			throw new Error(res.statusText);
+//     	}
+//     	return res.json();
+//   	})
+// 	.then(res => {
+// 		if (!res.ok) {
+// 			throw new Error(res.statusText);
+// 		}
+// 		return res.json();
+// 	})
+// 	.then(_res => {
+// 		return dispatch(getCategoryTotals(_res))
+// 	})
+// 	.catch(error => {
+// 		return error;
+// 	})
+// }
 
-
-export const asyncDeleteExpense = (expenseId) => dispatch => {
-	return fetch('/expense', {
-		method: 'delete',
-		headers: {
-			Accept: 'application/json',
-			'Content-Type': 'application/json',
-		},
-		body: JSON.stringify({expenseId: expenseId})
-
-	})
-	.then(res => {
-		if (!res.ok) {
-			throw new Error(res.statusText);			
-		}
-		return res.json();
-	})
-	.then(_res => {
-		console.log(_res, "THIS IS THE RESPONSE FOR DELETE")
-		return dispatch(deleteExpense(_res.expenseId))
-	})
-	.catch(error => {
-		return error;
-	})
-}
+//
+// export const asyncDeleteExpense = (expenseId) => dispatch => {
+// 	return fetch('/expense', {
+// 		method: 'delete',
+// 		headers: {
+// 			Accept: 'application/json',
+// 			'Content-Type': 'application/json',
+// 		},
+// 		body: JSON.stringify({expenseId: expenseId})
+//
+// 	})
+// 	.then(res => {
+// 		if (!res.ok) {
+// 			throw new Error(res.statusText);
+// 		}
+// 		return res.json();
+// 	})
+// 	.then(_res => {
+// 		console.log(_res, "THIS IS THE RESPONSE FOR DELETE")
+// 		return dispatch(deleteExpense(_res.expenseId))
+// 	})
+// 	.catch(error => {
+// 		return error;
+// 	})
+// }
 
 
 export const MAP_USER_TO_STORE = 'MAP_USER_TO_STORE';
@@ -270,5 +270,3 @@ export const INCREMENT_RENDER_VIEW = 'INCREMENT_RENDER_VIEW';
 export const incrementRenderView = () => ({
 	type: INCREMENT_RENDER_VIEW,
 })
-
-

@@ -53,7 +53,6 @@ passport.use(
                         categories: [],
                         expenses: [],
                         goals: []
-
                     }
                     console.log('NEW USER ', newUser)
                     return User
@@ -126,7 +125,7 @@ app.put('/api/logout', jsonParser, (req, res) => {
     console.log('IS THIS WORKING???? ', req.body.answerHistory)
 
     User
-        .findOneAndUpdate({"googleId": req.body.googleId}, {$set:{"questionHistory": req.body.questionHistory, "answerHistory": req.body.answerHistory}})
+        .findOneAndUpdate({"googleId": req.body.googleId}, {$set:{"goals": req.body.goals, "expenses": req.body.expenses, "categories": req.body.categories}})
         .exec()
         .then(updatedStudent => res.status(201).json())
         .catch(err => res.status(500).json({message: 'Your update was unsuccessful'}));

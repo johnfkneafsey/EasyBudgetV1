@@ -180,10 +180,15 @@ export class DisplayTransactions extends React.Component {
 
 
 const mapStateToProps = (state, props) => ({
-	categories: state.categories,
-	tempResults: state.tempResults,
-	currentCategory: state.currentCategory,
+	_id: state._id,
+	googleId: state.googleId,
+	accessToken: state.accessToken,
+	name: state.name,
 	expenses: state.expenses,
+	goals: state.goals,
+	categories: state.categories,
+	categoryTotals: state.categoryTotals,
+	currentCategory: state.currentCategory,
 	calendar: state.calendar,
 	displayTransactions: state.displayTransactions,
 	renderPage: state.renderPage

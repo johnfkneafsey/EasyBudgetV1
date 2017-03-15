@@ -4,16 +4,14 @@ import {calendar} from '../calendar';
 import store from '../store';
 
 
-
 const initialState = {
-  _id: '',
-  googleId: '',
-  accessToken: '',
-  name: '',
+	_id: '',
+	googleId: '',
+	accessToken: '',
+	name: '',
 	expenses: null,
 	goals: null,
 	categories: null,
-
 	categoryTotals: [],
 	currentCategory: 'All',
 	calendar: calendar,
@@ -29,9 +27,9 @@ export const mainReducer = (state= initialState, action) => {
             googleId: {$set: action.userData.googleId},
             accessToken: {$set: action.userData.accessToken},
             name: {$set: action.userData.name},
-      			categories: {$set: action.userData.categories},
-      			expenses: {$set: action.userData.expenses},
-      			goals: {$set: action.userData.goals}
+			categories: {$set: action.userData.categories},
+			expenses: {$set: action.userData.expenses},
+			goals: {$set: action.userData.goals}
         })
     }
 

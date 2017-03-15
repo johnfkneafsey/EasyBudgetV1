@@ -151,7 +151,17 @@ export class ExpenseInput extends React.Component {
 }
 
 const mapStateToProps = (state, props) => ({
+	_id: state._id,
+	googleId: state.googleId,
+	accessToken: state.accessToken,
+	name: state.name,
+	expenses: state.expenses,
+	goals: state.goals,
 	categories: state.categories,
+	categoryTotals: state.categoryTotals,
+	currentCategory: state.currentCategory,
+	calendar: state.calendar,
+	displayTransactions: state.displayTransactions,
 	renderPage: state.renderPage
 });
 

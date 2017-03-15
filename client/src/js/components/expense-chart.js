@@ -1,4 +1,4 @@
-import React from 'react';
+/*import React from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions/index';
 import store from '../store';
@@ -246,7 +246,7 @@ render () {
                                 <a href="#about">Resources</a>
                             </li>
                             <li className="page-scroll">
-                                <a href="#about">Sign In</a>
+                                 <a onClick={this.updateUserInDatabase} href={`${SERVER_ROOT}/auth/logout`}>Sign Out</a>
                             </li>
                         </ul>
                     </div>
@@ -287,4 +287,4 @@ export default connect(mapStateToProps)(ExpenseChart);
 /*<div>
     <h3>Spent vs. Budgeted by Category</h3>
     <Radar className="chart" data={this.radarData()} />
-</div>*/
+</div>*/*/

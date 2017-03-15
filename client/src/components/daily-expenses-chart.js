@@ -1,4 +1,4 @@
-/*import React from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions/index';
 import store from '../store';
@@ -8,6 +8,7 @@ import {Line} from 'react-chartjs-2';
 import {calendar} from '../calendar';
 import DatePicker from 'react-bootstrap-date-picker';
 import Chart from 'chart.js';
+import {SERVER_ROOT} from '../config';
 
 Chart.defaults.global.responsive = false;
 Chart.defaults.global.legend.labels.fontSize = 16;
@@ -23,7 +24,12 @@ export class DailyExpensesChart extends React.Component {
 		this.onSubmit = this.onSubmit.bind(this);
     	this.onClickBack = this.onClickBack.bind(this);
     	this.onClickNext = this.onClickNext.bind(this);
-  	}
+	    this.updateUserInDatabase = this.updateUserInDatabase.bind(this);
+    }
+
+    updateUserInDatabase() {
+        this.props.dispatch(actions.updateUserInDatabase(this.props)) 
+    }
 
 
 	onClickBack() {
@@ -41,19 +47,19 @@ export class DailyExpensesChart extends React.Component {
 	}
 
 
-      radarData () {
-		let totalExpenses = {}
+    radarData () {
+        let totalExpenses = {}
 
-		for (let i=0; i<this.props.categories.length; i++) {
-			let temp = this.props.categories[i].name;
-			totalExpenses[temp] = 0;
-			for(let k=0; k<this.props.expenses.length; k++){
-				let newTemp = this.props.expenses;
-				if (newTemp[k].category === temp) {
-					totalExpenses[temp] += newTemp[k].cost;
-				}
-			}
-		}
+        for (let i=0; i<this.props.categories.length; i++) {
+            let temp = this.props.categories[i].name;
+            totalExpenses[temp] = 0;
+            for(let k=0; k<this.props.expenses.length; k++){
+                let newTemp = this.props.expenses;
+                if (newTemp[k].category === temp) {
+                    totalExpenses[temp] += newTemp[k].cost;
+                }
+            }
+        }
 
         let totalExpensesCategory = [];
         let totalExpensesAmount = [];
@@ -64,7 +70,7 @@ export class DailyExpensesChart extends React.Component {
             for (let i=0; i<this.props.goals.length; i++) {
                 let temp = this.props.goals[i].category;
                 if (key === temp) {
-                   totalExpenseBudgets.push(this.props.goals[i].goal)
+                    totalExpenseBudgets.push(this.props.goals[i].goal)
                 }
             }
         }
@@ -105,22 +111,22 @@ export class DailyExpensesChart extends React.Component {
             ]
         };
         return radarData;
-      }
+        }
 
 
-      doughnutData () {
+    doughnutData () {
         let totalExpenses = {}
 
-		for (let i=0; i<this.props.categories.length; i++) {
-			let temp = this.props.categories[i].name;
-			totalExpenses[temp] = 0;
-			for(let k=0; k<this.props.expenses.length; k++){
-				let newTemp = this.props.expenses;
-				if (newTemp[k].category === temp) {
-					totalExpenses[temp] += newTemp[k].cost;
-				}
-			}
-		}
+        for (let i=0; i<this.props.categories.length; i++) {
+            let temp = this.props.categories[i].name;
+            totalExpenses[temp] = 0;
+            for(let k=0; k<this.props.expenses.length; k++){
+                let newTemp = this.props.expenses;
+                if (newTemp[k].category === temp) {
+                    totalExpenses[temp] += newTemp[k].cost;
+                }
+            }
+        }
 
         let totalExpensesCategory = [];
         let totalExpensesAmount = [];
@@ -131,7 +137,7 @@ export class DailyExpensesChart extends React.Component {
             for (let i=0; i<this.props.goals.length; i++) {
                 let temp = this.props.goals[i].category;
                 if (key === temp) {
-                   totalExpenseBudgets.push(this.props.goals[i].goal)
+                    totalExpenseBudgets.push(this.props.goals[i].goal)
                 }
             }
         }
@@ -163,7 +169,7 @@ export class DailyExpensesChart extends React.Component {
             }]
         };
         return doughnutData;
-      }
+        }
 
 
       onSubmit (event) {
@@ -216,18 +222,17 @@ export class DailyExpensesChart extends React.Component {
         }
 
 
-render () {
+    render () {
 
-    let lineChartDisplay
-    if (this.state.lineData.labels) {
-        lineChartDisplay = <Line className="chart-line" data={this.state.lineData} width={800} height={400} />
-    }
+        let lineChartDisplay
+        if (this.state.lineData.labels) {
+            lineChartDisplay = <Line className="chart-line" data={this.state.lineData} width={800} height={400} />
+        }
 
-    let transactionsBlurb = <h3>Showing <span className="greenie" >{this.props.currentCategory}</span> transactions between <span className="greenie" >{this.props.displayTransactions.startDate}</span> and <span className="greenie" >{this.props.displayTransactions.endDate}</span> </h3>
+        let transactionsBlurb = <h3>Showing <span className="greenie" >{this.props.currentCategory}</span> transactions between <span className="greenie" >{this.props.displayTransactions.startDate}</span> and <span className="greenie" >{this.props.displayTransactions.endDate}</span> </h3>
 
 
     return (
-
 
         <div>
             <nav id="mainNav" className="navbar navbar-default navbar-fixed-top navbar-custom">
@@ -274,7 +279,7 @@ render () {
                         <form onSubmit={this.onSubmit}>
                             <label className="category" >Choose a start date,</label>
                             <DatePicker  className='calendarToggle' id="example-datepicker-start" ref="datePicked" onChange={this.handleChangeStartDate} />
-                            <label className="category" >...and an end date</label>
+                            <label className="category" >Choose an end date</label>
                             <DatePicker  className='calendarToggle' id="example-datepicker-end" ref="datePicked" onChange={this.handleChangeEndDate} />
                             <input type="submit" className="btn btn-primary"/>
                         </form>
@@ -302,4 +307,4 @@ export default connect(mapStateToProps)(DailyExpensesChart);
 /*<div>
     <h3>Spent vs. Budgeted by Category</h3>
     <Radar className="chart" data={this.radarData()} />
-</div>*/*/
+</div>*/

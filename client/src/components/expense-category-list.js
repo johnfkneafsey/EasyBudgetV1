@@ -1,8 +1,8 @@
-/*import React from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions/index';
 import store from '../store';
-
+import {SERVER_ROOT} from '../config';
 
 export class ExpenseCategoryList extends React.Component {
 	constructor(props) {
@@ -10,7 +10,12 @@ export class ExpenseCategoryList extends React.Component {
     	this.onSubmit = this.onSubmit.bind(this);
     	this.onClickBack = this.onClickBack.bind(this);
     	this.onClickNext = this.onClickNext.bind(this);
-  	}
+	    this.updateUserInDatabase = this.updateUserInDatabase.bind(this);
+    }
+
+    updateUserInDatabase() {
+        this.props.dispatch(actions.updateUserInDatabase(this.props)) 
+    }
 
 
 	onClickBack() {
@@ -22,7 +27,7 @@ export class ExpenseCategoryList extends React.Component {
 
 	onClickNext() {
 		console.log('NEXT')
-		if (this.props.renderPage < 7) {
+		if (this.props.renderPage < 7 && this.props.categories.length > 0) {
 		this.props.dispatch(actions.incrementRenderView())
 		}
 	}
@@ -142,4 +147,4 @@ const mapStateToProps = (state, props) => ({
 
 });
 
-export default connect(mapStateToProps)(ExpenseCategoryList);*/
+export default connect(mapStateToProps)(ExpenseCategoryList);

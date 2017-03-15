@@ -1,14 +1,20 @@
-/*import React from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions/index';
 import store from '../store';
 import * as Cookies from 'js-cookie';
 import {SERVER_ROOT} from '../config';
+import bigelephant from '../assets/img/bigelephant.png'
 
 export class Title extends React.Component {
 	constructor(props) {
     	super(props);
-  	}
+	    this.updateUserInDatabase = this.updateUserInDatabase.bind(this);
+    }
+
+    updateUserInDatabase() {
+        this.props.dispatch(actions.updateUserInDatabase(this.props)) 
+    }
 
 	componentDidMount() {
         const accessToken = Cookies.get('accessToken');
@@ -68,7 +74,7 @@ export class Title extends React.Component {
                     <div className="row">
 
                         <div className="col-lg-12">
-                            <img className="img-responsive" src="assets/img/bigelephant.png" alt="" />
+                            <img className="img-responsive" src={bigelephant} alt="cartoon elephant" />
                             <div className="intro-text">
                                 <span className="name">Easy Budget</span>
                                 <hr className="star-light"></hr>
@@ -96,4 +102,4 @@ const mapStateToProps = (state, props) => ({
 
 });
 
-export default connect(mapStateToProps)(Title);*/
+export default connect(mapStateToProps)(Title);

@@ -1,9 +1,10 @@
-/*import React from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions/index';
 import DatePicker from 'react-bootstrap-date-picker';
 import store from '../store';
 import Chart from 'chart.js'
+import {SERVER_ROOT} from '../config';
 Chart.defaults.global.responsive = false;
 
 export class DisplayTransactions extends React.Component {
@@ -15,7 +16,12 @@ export class DisplayTransactions extends React.Component {
 		this.handleChange = this.handleChange.bind(this);
     	this.onClickBack = this.onClickBack.bind(this);
     	this.onClickNext = this.onClickNext.bind(this);
-  	}
+	    this.updateUserInDatabase = this.updateUserInDatabase.bind(this);
+    }
+
+    updateUserInDatabase() {
+        this.props.dispatch(actions.updateUserInDatabase(this.props)) 
+    }
 
 	onClickBack() {
 		console.log('PREV');
@@ -136,7 +142,7 @@ export class DisplayTransactions extends React.Component {
 						<button className=" glyphicon glyphicon-chevron-right directionalButtons" onClick={() => this.onClickNext()} ></button>
 					</div>
 					<div className="page-header makeColoredHeader">
-						<h1 className="stepHeaders">Your Expense History</h1>
+						<h1 className="stepHeaders">View and Edit Your Expense History</h1>
 					</div>
 					<br></br>
 					<form >
@@ -184,4 +190,4 @@ const mapStateToProps = (state, props) => ({
 });
 
 
-export default connect(mapStateToProps)(DisplayTransactions);*/
+export default connect(mapStateToProps)(DisplayTransactions);

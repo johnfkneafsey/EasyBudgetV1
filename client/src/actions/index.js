@@ -270,3 +270,26 @@ export const INCREMENT_RENDER_VIEW = 'INCREMENT_RENDER_VIEW';
 export const incrementRenderView = () => ({
 	type: INCREMENT_RENDER_VIEW,
 })
+
+
+export const updateUserInDatabase = (userData) => dispatch => {
+	console.log('JSON STRINGIFY' , JSON.stringify(userData));
+	return fetch('http://localhost:8080/api/logout', {
+		method: 'PUT',
+		headers: {
+			Accept: 'application/json',
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify(userData)
+	})
+	.then(res => {
+		if (!res.ok) {
+				throw new Error(res.statusText);
+		}
+		console.log('THIS IS BEING SENT TO LOG OUT ENDPOINT ', res);
+		return res.json();
+	})
+	.catch(error => {
+		return error;
+	})
+}

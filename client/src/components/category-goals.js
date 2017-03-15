@@ -1,7 +1,8 @@
-/*import React from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions/index';
 import store from '../store';
+import {SERVER_ROOT} from '../config';
 
 export class CategoryGoals extends React.Component {
 	constructor(props) {
@@ -13,7 +14,13 @@ export class CategoryGoals extends React.Component {
 		this.getTotalBudget = this.getTotalBudget.bind(this);
     	this.onClickBack = this.onClickBack.bind(this);
     	this.onClickNext = this.onClickNext.bind(this);
-  	}
+	    this.updateUserInDatabase = this.updateUserInDatabase.bind(this);
+    }
+
+    updateUserInDatabase() {
+		console.log(this.props);
+        this.props.dispatch(actions.updateUserInDatabase(this.props)) 
+    }
 
 	onClickBack() {
 		console.log('PREV');
@@ -35,6 +42,10 @@ export class CategoryGoals extends React.Component {
   		let categoryAmount = parseInt((this.refs.dollars).value.trim());
         let goalCategory = (this.refs.expenseCategory).value.trim();
 		let goalIndex = -1;
+		if (categoryAmount / categoryAmount !== 1) {
+			alert("Please enter a valid number")
+			return null;
+		}
 		for (let i = 0; i < this.props.goals.length; i++) {
 			if ((this.props.goals[i].category) === goalCategory) {
 				goalIndex = i;
@@ -184,4 +195,4 @@ const mapStateToProps = (state, props) => ({
 	renderPage: state.renderPage
 });
 
-export default connect(mapStateToProps)(CategoryGoals);*/
+export default connect(mapStateToProps)(CategoryGoals);

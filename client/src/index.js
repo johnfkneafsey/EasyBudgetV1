@@ -4,14 +4,19 @@ console.log(`Client running in ${process.env.NODE_ENV} mode`);
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Layout from './js/components/layout';
+//import Layout from './js/components/layout';
 
-import store from './js/store';
+import App from './components/app';
+import './index.css';
+import store from './store';
 import {Provider} from 'react-redux';
 
+
+
+console.log('bottom')
 document.addEventListener('DOMContentLoaded', () =>
     ReactDOM.render(
     	<Provider store={store} >
-    		<Layout />
+    		<App />
     	</Provider>, document.getElementById('app'))
 );

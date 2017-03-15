@@ -39,7 +39,7 @@ passport.use(
         callbackURL: `${config.ROOT}/auth/google/callback`
     },
     (accessToken, refreshToken, profile, cb) => {
-
+        console.log('ARE WE ANYWHERE ?????????????')
         User
             .findOne({googleId: profile.id})
             .exec()
@@ -151,102 +151,102 @@ app.get('/api/questions',
 );
 
 
-app.post('/category', jsonParser, (req, res) => {
-    Category
-        .create({
-            name: req.body.name
-        })
-        .then(category => {
-            res.status(201).json(category.apiRepr())
-        })
-        .catch(err => {
-            res.status(500).json({error: '500 error'})
-        })
-});
+// app.post('/category', jsonParser, (req, res) => {
+//     Category
+//         .create({
+//             name: req.body.name
+//         })
+//         .then(category => {
+//             res.status(201).json(category.apiRepr())
+//         })
+//         .catch(err => {
+//             res.status(500).json({error: '500 error'})
+//         })
+// });
 
 
-app.post('/expense', jsonParser, (req, res) => {
-    Expense
-        .create({
-            category: req.body.category,
-            cost: req.body.cost,
-            description: req.body.description,
-            date: req.body.date
-        })
-        .then(expense => {
-            res.status(201).json(expense.apiRepr())
-        })
-        .catch(err => {
-            res.status(500).json({error: '500 error'});
-        })
-})
+// app.post('/expense', jsonParser, (req, res) => {
+//     Expense
+//         .create({
+//             category: req.body.category,
+//             cost: req.body.cost,
+//             description: req.body.description,
+//             date: req.body.date
+//         })
+//         .then(expense => {
+//             res.status(201).json(expense.apiRepr())
+//         })
+//         .catch(err => {
+//             res.status(500).json({error: '500 error'});
+//         })
+// })
 
 
-app.post('/goal', jsonParser, (req, res) => {
-    Goal
-        .create({
-            category: req.body.category,
-            goal: req.body.goal
-        })
-        .then(goal => {
-            res.status(201).json(goal.apiRepr())
-        })
-        .catch(err => {
-            res.status(500).json({error: '500 error'});
-        })
-})
+// app.post('/goal', jsonParser, (req, res) => {
+//     Goal
+//         .create({
+//             category: req.body.category,
+//             goal: req.body.goal
+//         })
+//         .then(goal => {
+//             res.status(201).json(goal.apiRepr())
+//         })
+//         .catch(err => {
+//             res.status(500).json({error: '500 error'});
+//         })
+// })
 
 
-app.get('/category', jsonParser, (req, res) => {
-    Category
-        .find()
-        .exec()
-        .then(categories => {
-            res.json(categories.map(category => category.apiRepr()))
-        })
-        .catch(err => {
-            res.status(500).json({error: 'Something went horribly wrong'})
-        })
-})
+// app.get('/category', jsonParser, (req, res) => {
+//     Category
+//         .find()
+//         .exec()
+//         .then(categories => {
+//             res.json(categories.map(category => category.apiRepr()))
+//         })
+//         .catch(err => {
+//             res.status(500).json({error: 'Something went horribly wrong'})
+//         })
+// })
 
 
-app.get('/goal', jsonParser, (req, res) => {
-    Goal
-        .find()
-        .exec()
-        .then(goals => {
-            res.json(goals.map(goal => goal.apiRepr()))
-        })
-        .catch(err => {
-            res.status(500).json({error: 'Something went horribly wrong'})
-        })
-})
+// app.get('/goal', jsonParser, (req, res) => {
+//     Goal
+//         .find()
+//         .exec()
+//         .then(goals => {
+//             res.json(goals.map(goal => goal.apiRepr()))
+//         })
+//         .catch(err => {
+//             res.status(500).json({error: 'Something went horribly wrong'})
+//         })
+// })
 
 
-app.get('/expense', jsonParser, (req, res) => {
-    Expense
-        .find()
-        .exec()
-        .then(expenses => {
-            res.json(expenses.map(expense => expense.apiRepr()))
-        })
-        .catch(err => {
-            res.status(500).json({error: 'Something went horribly wrong'})
-        })
-})
+// app.get('/expense', jsonParser, (req, res) => {
+//     Expense
+//         .find()
+//         .exec()
+//         .then(expenses => {
+//             res.json(expenses.map(expense => expense.apiRepr()))
+//         })
+//         .catch(err => {
+//             res.status(500).json({error: 'Something went horribly wrong'})
+//         })
+// })
 
 
-app.delete('/expense', jsonParser, (req, res) => {
-  Expense
-    .findByIdAndRemove(req.body.expenseId)
-    .exec()
-    .then(() => {
-      res.status(204).json({message: 'success'});
-    })
-    .catch(err => {
-      res.status(500).json({error: 'something went terribly wrong'});
-    });
-});
+// app.delete('/expense', jsonParser, (req, res) => {
+//   Expense
+//     .findByIdAndRemove(req.body.expenseId)
+//     .exec()
+//     .then(() => {
+//       res.status(204).json({message: 'success'});
+//     })
+//     .catch(err => {
+//       res.status(500).json({error: 'something went terribly wrong'});
+//     });
+// });
 
 let server;
 function runServer(host, port) {

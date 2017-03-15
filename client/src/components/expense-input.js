@@ -1,10 +1,10 @@
-/*import React from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import * as actions from '../actions/index';
 import DatePicker from 'react-bootstrap-date-picker';
 import Store from '../store';
-
+import {SERVER_ROOT} from '../config';
 
 export class ExpenseInput extends React.Component {
 	constructor(props) {
@@ -14,7 +14,12 @@ export class ExpenseInput extends React.Component {
     	this.componentDidUpdate = this.componentDidUpdate.bind(this);
     	this.onClickBack = this.onClickBack.bind(this);
     	this.onClickNext = this.onClickNext.bind(this);
-  	}
+	    this.updateUserInDatabase = this.updateUserInDatabase.bind(this);
+    }
+
+    updateUserInDatabase() {
+        this.props.dispatch(actions.updateUserInDatabase(this.props)) 
+    }
 
 
 	onClickBack() {
@@ -49,7 +54,11 @@ export class ExpenseInput extends React.Component {
         let expenseCategory = (this.refs.expenseCategory).value.trim();
         let expenseDescription = (this.refs.description).value.trim();
         let dateSelected = document.getElementById("example-datepicker").getAttribute('data-formattedvalue');
-	    this.props.dispatch(actions.addExpense(expenseDollars, expenseCategory, expenseDescription, dateSelected));
+		if (expenseDollars / expenseDollars !== 1) {
+			alert("Please enter a valid number")
+			return null;
+		}	    
+		this.props.dispatch(actions.addExpense(expenseDollars, expenseCategory, expenseDescription, dateSelected));
 	    this.refs.dollars.value = "";
 	    this.refs.expenseCategory.value = "";
 	    this.refs.description.value = "";
@@ -120,13 +129,13 @@ export class ExpenseInput extends React.Component {
 							<br></br>
 							<input type="text" className="form-control" ref="dollars" placeholder="Enter dollar amount" required/>
 							<br></br>
-							<label className="category" >How would you categorize this?</label>
+							<label className="category" >How would you categorize it?</label>
 							<br></br>
 							<select name="expenseCategory" id='expenseCategory' className="form-control center-dropdown" value={this.value} ref="expenseCategory" required>
 									{options}
 							</select>
 							<br></br>
-						<label> Describe the expense</label>
+						<label>Provide a description</label>
 							<br></br>
 						<input type="text" className="form-control" ref="description" placeholder="Enter a description" required/>
 							<br></br>
@@ -146,4 +155,4 @@ const mapStateToProps = (state, props) => ({
 	renderPage: state.renderPage
 });
 
-export default connect(mapStateToProps)(ExpenseInput);*/
+export default connect(mapStateToProps)(ExpenseInput);

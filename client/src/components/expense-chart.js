@@ -1,4 +1,4 @@
-/*import React from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions/index';
 import store from '../store';
@@ -7,13 +7,10 @@ import {Doughnut} from 'react-chartjs-2';
 import {Line} from 'react-chartjs-2';
 import {calendar} from '../calendar';
 import DatePicker from 'react-bootstrap-date-picker';
-import Chart from 'chart.js';
-
-Chart.defaults.global.responsive = false;
-Chart.defaults.global.legend.labels.fontSize = 16;
+import {SERVER_ROOT} from '../config';
 
 
-export class DailyExpensesChart extends React.Component {
+export class ExpenseChart extends React.Component {
 	constructor(props) {
     	super(props);
         this.state = {
@@ -23,7 +20,12 @@ export class DailyExpensesChart extends React.Component {
 		this.onSubmit = this.onSubmit.bind(this);
     	this.onClickBack = this.onClickBack.bind(this);
     	this.onClickNext = this.onClickNext.bind(this);
-  	}
+	    this.updateUserInDatabase = this.updateUserInDatabase.bind(this);
+    }
+
+    updateUserInDatabase() {
+        this.props.dispatch(actions.updateUserInDatabase(this.props)) 
+    }
 
 
 	onClickBack() {
@@ -36,13 +38,13 @@ export class DailyExpensesChart extends React.Component {
 	onClickNext() {
 		console.log('NEXT')
 		if (this.props.renderPage < 7) {
-		this.props.dispatch(actions.incrementRenderView())
+		this.props.dispatch(actions.incrementRenderView())	
 		}
 	}
 
 
       radarData () {
-		let totalExpenses = {}
+		let totalExpenses = {} 
 
 		for (let i=0; i<this.props.categories.length; i++) {
 			let temp = this.props.categories[i].name;
@@ -64,7 +66,7 @@ export class DailyExpensesChart extends React.Component {
             for (let i=0; i<this.props.goals.length; i++) {
                 let temp = this.props.goals[i].category;
                 if (key === temp) {
-                   totalExpenseBudgets.push(this.props.goals[i].goal)
+                   totalExpenseBudgets.push(this.props.goals[i].goal)                              
                 }
             }
         }
@@ -76,7 +78,7 @@ export class DailyExpensesChart extends React.Component {
         let radarData = {
             labels: totalExpensesCategory,
             options: {
-                scaleFontSize : 26,scaleFontColor : 'rgb(51,51,51)'}
+                scaleFontSize : 26,scaleFontColor : 'rgb(51,51,51)'}               
             ,
             datasets: [
                 {
@@ -98,18 +100,18 @@ export class DailyExpensesChart extends React.Component {
                 pointBackgroundColor: 'rgb(24,188,156)',
                 pointBorderColor: '#fff',
                 pointHoverBackgroundColor: '#fff',
-                options: {scaleFontSize : 26,scaleFontColor : 'rgb(51,51,51)'},
+                options: {scaleFontSize : 26,scaleFontColor : 'rgb(51,51,51)'},                
                 pointHoverBorderColor: 'rgb(24,188,156)',
                 data: totalExpensesAmount
                 }
             ]
         };
-        return radarData;
+        return radarData;        
       }
 
 
       doughnutData () {
-        let totalExpenses = {}
+        let totalExpenses = {} 
 
 		for (let i=0; i<this.props.categories.length; i++) {
 			let temp = this.props.categories[i].name;
@@ -125,13 +127,13 @@ export class DailyExpensesChart extends React.Component {
         let totalExpensesCategory = [];
         let totalExpensesAmount = [];
         let totalExpenseBudgets = [];
-        for (let key in totalExpenses) {
+        for (let key in totalExpenses) {          
             totalExpensesCategory.push(key.capitalize());
-            totalExpensesAmount.push(totalExpenses[key]);
+            totalExpensesAmount.push(totalExpenses[key]);      
             for (let i=0; i<this.props.goals.length; i++) {
                 let temp = this.props.goals[i].category;
                 if (key === temp) {
-                   totalExpenseBudgets.push(this.props.goals[i].goal)
+                   totalExpenseBudgets.push(this.props.goals[i].goal)                              
                 }
             }
         }
@@ -165,12 +167,12 @@ export class DailyExpensesChart extends React.Component {
         return doughnutData;
       }
 
-
+  
       onSubmit (event) {
         event.preventDefault();
         let startDate = document.getElementById("example-datepicker-start").getAttribute('data-formattedvalue');
         let endDate = document.getElementById("example-datepicker-end").getAttribute('data-formattedvalue');
-        let dateArray = [];
+        let dateArray = [];     
         for (let i = this.props.calendar.indexOf(startDate.toString()); i <= this.props.calendar.indexOf(endDate.toString()); i++) {
             dateArray.push(this.props.calendar[i]);
         }
@@ -182,7 +184,7 @@ export class DailyExpensesChart extends React.Component {
                     dailyExpenses += this.props.expenses[j].cost;
                 }
             }
-            expensesArray.push(dailyExpenses);
+            expensesArray.push(dailyExpenses); 
         }
 
         let lineData = {
@@ -220,11 +222,8 @@ render () {
 
     let lineChartDisplay
     if (this.state.lineData.labels) {
-        lineChartDisplay = <Line className="chart-line" data={this.state.lineData} width={800} height={400} />
+        lineChartDisplay = <Line className="chart-line" data={this.state.lineData} />
     }
-
-    let transactionsBlurb = <h3>Showing <span className="greenie" >{this.props.currentCategory}</span> transactions between <span className="greenie" >{this.props.displayTransactions.startDate}</span> and <span className="greenie" >{this.props.displayTransactions.endDate}</span> </h3>
-
 
     return (
 
@@ -232,14 +231,14 @@ render () {
         <div>
             <nav id="mainNav" className="navbar navbar-default navbar-fixed-top navbar-custom">
                 <div className="container">
-
+                
                     <div className="navbar-header page-scroll">
                         <button type="button" className="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                             <span className="sr-only">Toggle navigation</span> Menu <i className="fa fa-bars"></i>
                         </button>
                         <a className="navbar-brand" href="#page-top">Easy Budget</a>
                     </div>
-
+                    
                     <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul className="nav navbar-nav navbar-right">
                             <li className="hidden">
@@ -257,7 +256,7 @@ render () {
                         </ul>
                     </div>
                 </div>
-                <div className="green-bar">
+                <div className="green-bar"> 
                 </div>
             </nav>
 			<div className="container">
@@ -265,19 +264,12 @@ render () {
 
 					<div className="buttons">
 						<button className=" glyphicon glyphicon-chevron-left directionalButtons" onClick={() => this.onClickBack()} ></button>
+						<button className=" glyphicon glyphicon-chevron-right directionalButtons" onClick={() => this.onClickNext()} ></button>
 					</div>
 
-                    <div className="stepHeaders">
-
-                        <h1><h2><u>Chart</u></h2>Transactions by Day</h1>
-                            {lineChartDisplay}
-                        <form onSubmit={this.onSubmit}>
-                            <label className="category" >Choose a start date,</label>
-                            <DatePicker  className='calendarToggle' id="example-datepicker-start" ref="datePicked" onChange={this.handleChangeStartDate} />
-                            <label className="category" >...and an end date</label>
-                            <DatePicker  className='calendarToggle' id="example-datepicker-end" ref="datePicked" onChange={this.handleChangeEndDate} />
-                            <input type="submit" className="btn btn-primary"/>
-                        </form>
+                    <div className="stepHeaders">      
+                        <h1><h2><u>Chart</u></h2>Expenditures by Category</h1>
+                        <Doughnut className="chart" data={this.doughnutData()} height={400} width={400}/>
                     </div>
 
                 </div>
@@ -292,14 +284,12 @@ const mapStateToProps = (state, props) => ({
 	goals: state.goals,
 	expenses: state.expenses,
     calendar: state.calendar,
-	renderPage: state.renderPage,
-    displayTransactions: state.displayTransactions,
-    currentCategory: state.currentCategory
+	renderPage: state.renderPage
 });
 
-export default connect(mapStateToProps)(DailyExpensesChart);
+export default connect(mapStateToProps)(ExpenseChart);
 
 /*<div>
     <h3>Spent vs. Budgeted by Category</h3>
     <Radar className="chart" data={this.radarData()} />
-</div>*/*/
+</div>*/

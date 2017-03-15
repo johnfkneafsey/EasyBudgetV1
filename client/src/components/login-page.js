@@ -1,6 +1,6 @@
-/*import React from 'react';
+import React from 'react';
 import {SERVER_ROOT} from '../config';
-
+import bigelephant from '../assets/img/bigelephant.png'
 
 
 export default function LoginPage() {
@@ -28,9 +28,6 @@ export default function LoginPage() {
                             <li className="page-scroll">
                                 <a href="#about">Resources</a>
                             </li>
-                            <li className="page-scroll">
-                                 <a onClick={this.updateUserInDatabase} href={`${SERVER_ROOT}/auth/logout`}>Sign Out</a>
-                            </li>
                         </ul>
                     </div>
 
@@ -45,8 +42,8 @@ export default function LoginPage() {
                 <div className="container">
                     <div className="row">
                         <div className="col-lg-12">
-                            <img className="img-responsive" src="assets/img/bigelephant.png" alt="" />
-                            <div className="intro-text">
+                            <img className="img-responsive" src={bigelephant} alt="cartoon elephant" />
+                            <div className="intro-text spaceIt">
                                 <span className="name">Easy Budget</span>
                                 <hr className="star-light"></hr>
                                 <span className="skills">Expense Tracking - Budgeting - Simplicity</span>
@@ -64,4 +61,4 @@ export default function LoginPage() {
 
 
 
-    )}*/
+    )}

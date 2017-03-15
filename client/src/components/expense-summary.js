@@ -1,18 +1,23 @@
-/*import React from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions/index';
 import store from '../store';
-
+import {SERVER_ROOT} from '../config';
 
 
 export class ExpenseSummary extends React.Component {
 	constructor(props) {
-    	super(props);
-			this.getTotalBudget = this.getTotalBudget.bind(this);
-			this.getTotalSpent = this.getTotalSpent.bind(this);
-			this.onClickBack = this.onClickBack.bind(this);
-			this.onClickNext = this.onClickNext.bind(this);
-  	}
+	super(props);
+		this.getTotalBudget = this.getTotalBudget.bind(this);
+		this.getTotalSpent = this.getTotalSpent.bind(this);
+		this.onClickBack = this.onClickBack.bind(this);
+		this.onClickNext = this.onClickNext.bind(this);
+	    this.updateUserInDatabase = this.updateUserInDatabase.bind(this);
+    }
+
+    updateUserInDatabase() {
+        this.props.dispatch(actions.updateUserInDatabase(this.props)) 
+    }
 
 	onClickBack() {
 		console.log('PREV');
@@ -195,4 +200,4 @@ const mapStateToProps = (state, props) => ({
 	renderPage: state.renderPage
 });
 
-export default connect(mapStateToProps)(ExpenseSummary);*/
+export default connect(mapStateToProps)(ExpenseSummary);

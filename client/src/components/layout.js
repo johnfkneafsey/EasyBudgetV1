@@ -1,4 +1,4 @@
-/*import React from 'react';
+import React from 'react';
 import ExpenseCategoryList from './expense-category-list';
 import CategoryGoals from './category-goals';
 import ExpenseInput from './expense-input';
@@ -82,4 +82,4 @@ const mapStateToProps = (state, props) => ({
 
 export default connect(mapStateToProps)(Layout);
 
-*/
+

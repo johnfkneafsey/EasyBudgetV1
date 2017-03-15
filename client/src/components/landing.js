@@ -1,15 +1,20 @@
-/*import React from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions/index';
 import store from '../store';
-
+import {SERVER_ROOT} from '../config';
 
 export class Landing extends React.Component {
 	constructor(props) {
     	super(props);
     	this.onSubmit = this.onSubmit.bind(this);
     	this.onClickNext = this.onClickNext.bind(this);
-  	}
+	    this.updateUserInDatabase = this.updateUserInDatabase.bind(this);
+    }
+
+    updateUserInDatabase() {
+        this.props.dispatch(actions.updateUserInDatabase(this.props)) 
+    }
 
 
 	onClickBack() {
@@ -86,4 +91,4 @@ const mapStateToProps = (state, props) => ({
 
 });
 
-export default connect(mapStateToProps)(Landing);*/
+export default connect(mapStateToProps)(Landing);

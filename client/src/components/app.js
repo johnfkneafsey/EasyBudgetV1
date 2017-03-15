@@ -1,9 +1,9 @@
 import React from 'react';
 import * as Cookies from 'js-cookie';
 import { connect } from 'react-redux';
-import store from '../js/store';
-import Layout from '../js/components/layout';
-import LoginPage from '../js/components/login-page';
+import store from '../store';
+import Layout from './layout';
+import LoginPage from './login-page';
 import {SERVER_ROOT} from '../config';
 
 export class App extends React.Component {
@@ -38,13 +38,16 @@ export class App extends React.Component {
         }
     }
 
+
     render() {
-        if (!this.state.currentUser) {
+         if (!this.state.currentUser) {
+             console.log('WE ARE RENDERING LOGIN?')
             return <LoginPage />;
-        } else {
-        return <Layout />;
-        }
-    }
+         } else {
+             console.log('WE ARE RENDERING LAYOUT?')
+             return <Layout />;
+         }
+     }
 }
 
 const mapStateToProps = (state, props) => ({

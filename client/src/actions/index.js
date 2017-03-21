@@ -1,6 +1,6 @@
 import store from '../store'
 
-//
+
 // export const asyncAddExpenseCategory = (category) => dispatch => {
 // 	return fetch('/category', {
 // 		method: 'post',

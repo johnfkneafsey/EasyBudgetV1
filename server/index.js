@@ -116,8 +116,7 @@ app.get('/auth/google/callback',
 app.get('/auth/logout', (req, res) => {
     req.logout();
     res.clearCookie('accessToken');
-    res.redirect('http://localhost:3000');
-
+    res.redirect(`${config.CLIENT_ROOT}`);
 });
 
 app.put('/api/logout', jsonParser, (req, res) => {
@@ -148,6 +147,43 @@ app.get('/api/questions',
         res.json(req.user);
     }
 );
+
+
+
+let server;
+function runServer(host, port) {
+    return new Promise((resolve, reject) => {
+      //  mongoose.connect('mongodb://localhost/EasyBudget', function(err) {
+        mongoose.connect('mongodb://username:password@ds137220.mlab.com:37220/easy-budget', function(err) {
+            if(err) {
+                return reject(err);
+            }
+        })
+        server = app.listen(port, host, () => {
+            console.log(`Server running on ${host}:${port}`);
+            resolve();
+        }).on('error', reject);
+    });
+}
+
+function closeServer() {
+    return new Promise((resolve, reject) => {
+        server.close(err => {
+            if (err) {
+                return reject(err);
+            }
+            resolve();
+        });
+    });
+}
+
+if (require.main === module) {
+    runServer(config.HOST, config.PORT);
+}
+
+module.exports = {
+    app, runServer, closeServer
+};
 
 
 // app.post('/category', jsonParser, (req, res) => {
@@ -247,40 +283,6 @@ app.get('/api/questions',
 //     });
 // });
 
-let server;
-function runServer(host, port) {
-    return new Promise((resolve, reject) => {
-        mongoose.connect('mongodb://localhost/EasyBudget', function(err) {
-            if(err) {
-                return reject(err);
-            }
-        })
-        server = app.listen(port, host, () => {
-            console.log(`Server running on ${host}:${port}`);
-            resolve();
-        }).on('error', reject);
-    });
-}
-
-function closeServer() {
-    return new Promise((resolve, reject) => {
-        server.close(err => {
-            if (err) {
-                return reject(err);
-            }
-            resolve();
-        });
-    });
-}
-
-if (require.main === module) {
-    runServer(config.HOST, config.PORT);
-}
-
-module.exports = {
-    app, runServer, closeServer
-};
-
 
 // new guy
 // const DATABASE_URL = 'mongodb://localhost/MintLite';
@@ -318,48 +320,6 @@ module.exports = {
 // if (require.main === module) {
 //     runServer();
 // }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

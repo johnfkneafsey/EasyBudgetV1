@@ -15,7 +15,7 @@ import store from '../store';
 import {SERVER_ROOT} from '../config';
 import * as Cookies from 'js-cookie';
 
-// import Login from './sign-in';
+
 
 export class Layout extends React.Component {
 	constructor(props) {

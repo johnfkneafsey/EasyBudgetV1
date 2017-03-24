@@ -78,7 +78,8 @@ passport.use(
     new BearerStrategy(
         (accessToken, cb) => {
 
-        User.findOne({accessToken: accessToken}, function(err,user){
+        User
+            .findOne({accessToken: accessToken}, function(err,user){
             if(err){
                 console.log('ERROR WITH BEARER ');
                 return cb(err);
@@ -153,8 +154,7 @@ app.get('/api/questions',
 let server;
 function runServer(host, port) {
     return new Promise((resolve, reject) => {
-      //  mongoose.connect('mongodb://localhost/EasyBudget', function(err) {
-        mongoose.connect('mongodb://username:password@ds137220.mlab.com:37220/easy-budget', function(err) {
+        mongoose.connect('mongodb://localhost/EasyBudget', function(err) {
             if(err) {
                 return reject(err);
             }

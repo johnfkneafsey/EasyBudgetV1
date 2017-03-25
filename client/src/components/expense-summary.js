@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions/index';
@@ -16,7 +17,7 @@ export class ExpenseSummary extends React.Component {
     }
 
     updateUserInDatabase() {
-        this.props.dispatch(actions.updateUserInDatabase(this.props)) 
+        this.props.dispatch(actions.updateUserInDatabase(this.props))
     }
 
 	onClickBack() {

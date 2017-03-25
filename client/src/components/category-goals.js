@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions/index';
@@ -19,7 +20,7 @@ export class CategoryGoals extends React.Component {
 
     updateUserInDatabase() {
 		console.log('props herer',this.props);
-        this.props.dispatch(actions.updateUserInDatabase(this.props)) 
+        this.props.dispatch(actions.updateUserInDatabase(this.props))
     }
 
 	onClickBack() {

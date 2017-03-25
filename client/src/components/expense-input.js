@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
@@ -18,7 +19,7 @@ export class ExpenseInput extends React.Component {
     }
 
     updateUserInDatabase() {
-        this.props.dispatch(actions.updateUserInDatabase(this.props)) 
+        this.props.dispatch(actions.updateUserInDatabase(this.props))
     }
 
 
@@ -57,7 +58,7 @@ export class ExpenseInput extends React.Component {
 		if (expenseDollars / expenseDollars !== 1) {
 			alert("Please enter a valid number")
 			return null;
-		}	    
+		}
 		this.props.dispatch(actions.addExpense(expenseDollars, expenseCategory, expenseDescription, dateSelected));
 	    this.refs.dollars.value = "";
 	    this.refs.expenseCategory.value = "";

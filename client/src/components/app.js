@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from 'react';
 import * as Cookies from 'js-cookie';
 import { connect } from 'react-redux';

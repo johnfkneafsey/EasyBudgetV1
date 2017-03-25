@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from 'react';
 import {SERVER_ROOT} from '../config';
 import bigelephant from '../assets/img/bigelephant.png'
@@ -35,7 +36,7 @@ export default function LoginPage() {
 
                 <div className="green-bar">
                 </div>
-                
+
             </nav>
 
             <header>

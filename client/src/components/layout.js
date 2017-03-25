@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from 'react';
 import ExpenseCategoryList from './expense-category-list';
 import CategoryGoals from './category-goals';
@@ -22,13 +23,13 @@ export class Layout extends React.Component {
     	super(props);
     }
 
-	render() { 
+	render() {
 
 		if (this.props.renderPage === 0) {
 			console.log('were here at render 0')
 			return (
 			<div>
-				< Title /> 
+				< Title />
 				< Landing  />
 			</div>
 			)
@@ -60,12 +61,12 @@ export class Layout extends React.Component {
 		}
 		if (this.props.renderPage === 6) {
 			return (
-			< ExpenseChart /> 
+			< ExpenseChart />
 			)
 		}
 		if (this.props.renderPage === 7) {
 			return (
-			< DailyExpensesChart /> 
+			< DailyExpensesChart />
 			)
 		}
 	}
@@ -87,5 +88,3 @@ const mapStateToProps = (state, props) => ({
 });
 
 export default connect(mapStateToProps)(Layout);
-
-

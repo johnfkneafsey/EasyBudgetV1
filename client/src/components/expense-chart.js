@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions/index';
@@ -24,7 +25,7 @@ export class ExpenseChart extends React.Component {
     }
 
     updateUserInDatabase() {
-        this.props.dispatch(actions.updateUserInDatabase(this.props)) 
+        this.props.dispatch(actions.updateUserInDatabase(this.props))
     }
 
 
@@ -38,13 +39,13 @@ export class ExpenseChart extends React.Component {
 	onClickNext() {
 		console.log('NEXT')
 		if (this.props.renderPage < 7) {
-		this.props.dispatch(actions.incrementRenderView())	
+		this.props.dispatch(actions.incrementRenderView())
 		}
 	}
 
 
       radarData () {
-		let totalExpenses = {} 
+		let totalExpenses = {}
 
 		for (let i=0; i<this.props.categories.length; i++) {
 			let temp = this.props.categories[i].name;
@@ -66,7 +67,7 @@ export class ExpenseChart extends React.Component {
             for (let i=0; i<this.props.goals.length; i++) {
                 let temp = this.props.goals[i].category;
                 if (key === temp) {
-                   totalExpenseBudgets.push(this.props.goals[i].goal)                              
+                   totalExpenseBudgets.push(this.props.goals[i].goal)
                 }
             }
         }
@@ -78,7 +79,7 @@ export class ExpenseChart extends React.Component {
         let radarData = {
             labels: totalExpensesCategory,
             options: {
-                scaleFontSize : 26,scaleFontColor : 'rgb(51,51,51)'}               
+                scaleFontSize : 26,scaleFontColor : 'rgb(51,51,51)'}
             ,
             datasets: [
                 {
@@ -100,18 +101,18 @@ export class ExpenseChart extends React.Component {
                 pointBackgroundColor: 'rgb(24,188,156)',
                 pointBorderColor: '#fff',
                 pointHoverBackgroundColor: '#fff',
-                options: {scaleFontSize : 26,scaleFontColor : 'rgb(51,51,51)'},                
+                options: {scaleFontSize : 26,scaleFontColor : 'rgb(51,51,51)'},
                 pointHoverBorderColor: 'rgb(24,188,156)',
                 data: totalExpensesAmount
                 }
             ]
         };
-        return radarData;        
+        return radarData;
       }
 
 
       doughnutData () {
-        let totalExpenses = {} 
+        let totalExpenses = {}
 
 		for (let i=0; i<this.props.categories.length; i++) {
 			let temp = this.props.categories[i].name;
@@ -127,13 +128,13 @@ export class ExpenseChart extends React.Component {
         let totalExpensesCategory = [];
         let totalExpensesAmount = [];
         let totalExpenseBudgets = [];
-        for (let key in totalExpenses) {          
+        for (let key in totalExpenses) {
             totalExpensesCategory.push(key.capitalize());
-            totalExpensesAmount.push(totalExpenses[key]);      
+            totalExpensesAmount.push(totalExpenses[key]);
             for (let i=0; i<this.props.goals.length; i++) {
                 let temp = this.props.goals[i].category;
                 if (key === temp) {
-                   totalExpenseBudgets.push(this.props.goals[i].goal)                              
+                   totalExpenseBudgets.push(this.props.goals[i].goal)
                 }
             }
         }
@@ -167,12 +168,12 @@ export class ExpenseChart extends React.Component {
         return doughnutData;
       }
 
-  
+
       onSubmit (event) {
         event.preventDefault();
         let startDate = document.getElementById("example-datepicker-start").getAttribute('data-formattedvalue');
         let endDate = document.getElementById("example-datepicker-end").getAttribute('data-formattedvalue');
-        let dateArray = [];     
+        let dateArray = [];
         for (let i = this.props.calendar.indexOf(startDate.toString()); i <= this.props.calendar.indexOf(endDate.toString()); i++) {
             dateArray.push(this.props.calendar[i]);
         }
@@ -184,7 +185,7 @@ export class ExpenseChart extends React.Component {
                     dailyExpenses += this.props.expenses[j].cost;
                 }
             }
-            expensesArray.push(dailyExpenses); 
+            expensesArray.push(dailyExpenses);
         }
 
         let lineData = {
@@ -231,14 +232,14 @@ render () {
         <div>
             <nav id="mainNav" className="navbar navbar-default navbar-fixed-top navbar-custom">
                 <div className="container">
-                
+
                     <div className="navbar-header page-scroll">
                         <button type="button" className="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                             <span className="sr-only">Toggle navigation</span> Menu <i className="fa fa-bars"></i>
                         </button>
                         <a className="navbar-brand" href="#page-top">Easy Budget</a>
                     </div>
-                    
+
                     <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul className="nav navbar-nav navbar-right">
                             <li className="hidden">
@@ -256,7 +257,7 @@ render () {
                         </ul>
                     </div>
                 </div>
-                <div className="green-bar"> 
+                <div className="green-bar">
                 </div>
             </nav>
 			<div className="container">
@@ -267,7 +268,7 @@ render () {
 						<button className=" glyphicon glyphicon-chevron-right directionalButtons" onClick={() => this.onClickNext()} ></button>
 					</div>
 
-                    <div className="stepHeaders">      
+                    <div className="stepHeaders">
                         <h1><h2><u>Chart</u></h2>Expenditures by Category</h1>
                         <Doughnut className="chart" data={this.doughnutData()} height={400} width={400}/>
                     </div>

@@ -1,10 +1,13 @@
 const HOST = process.env.SERVER_HOST || process.env.HOST || 'localhost';
 const PORT = process.env.SERVER_PORT || process.env.PORT || 8080;
-const ROOT = `http://${HOST}:${PORT}`;
+// const ROOT = `http://${HOST}:${PORT}`;
+const ROOT = `https://easybudgetv1.herokuapp.com`;
+
 
 const CLIENT_HOST = process.env.CLIENT_HOST || 'localhost';
 const CLIENT_PORT = process.env.CLIENT_PORT || 3000;
-const CLIENT_ROOT = `http://${CLIENT_HOST}:${CLIENT_PORT}`;
+// const CLIENT_ROOT = `http://${CLIENT_HOST}:${CLIENT_PORT}`;
+const CLIENT_ROOT = `https://easybudgetv1.herokuapp.com`;
 
 // // mlab version 
 // // mongodb://username:password@ds137220.mlab.com:37220/easy-budget

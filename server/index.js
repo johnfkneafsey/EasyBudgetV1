@@ -1,4 +1,3 @@
-//import 'babel-polyfill';
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const HOST = process.env.HOST;
@@ -9,7 +8,6 @@ const BearerStrategy = require('passport-http-bearer').Strategy;
 
 const config = require('./config');
 const secret = require('./secret');
-  //const {Category, Expense, Goal, User, Question} = require('./models');
 const { User } = require('./models');
 
 const app = express();
